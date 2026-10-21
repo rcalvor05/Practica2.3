@@ -137,3 +137,7 @@ Ejecutamos el .sh
 ### Abrimos visual studio code (desde la maquina)
 ![Buscar](img/buscar.png)
 
+### Vamos al apartados de extensiones
+![Extensiones](img/extensiones.png)
+Buscamos **Oracle SQL Developer for VS Code** comprobamos que es de Oracle y lo descargamos
+![Extension](img/extension.png)
