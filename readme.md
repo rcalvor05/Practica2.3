@@ -222,3 +222,163 @@ Pondremos
 `SHOw CON_NAME`
 ![comprobación](img/comprovación.png)
 
+
+## SQLcl
+
+Entramos en este enlace `https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/download/` y descargamos este archivo.
+![descarga](img/263.png)
+
+### Descomprimimos el .zip
+`cd ~/Descargas`
+`ls`
+`unzip NOMBRE_DEL_ZIP.ZIP`
+`~/sqlcl/sqlcl/bin/sql -version`
+
+Nos dara esta respuesta
+`SQLcl: Versión 26.3.0.0 Production Versión interna: 26.3.0.260.1620`
+
+### Nos conectamos
+`~/sqlcl/sqlcl/bin/sql orauser@//192.168.56.101:1521/FREEPDB1`
+
+Entraremos y nos saldrá lo siguiente
+![resultado](img/sqlcl.png)
+
+Hacemos una prueba para ver que todo esta correcto
+![prueba](img/prueba.png)
+
+## PostegreSQL
+
+Lo descargamos en el cliente
+`sudo apt install postgresql-client`
+`psql --version`
+`psql -h 192.168.56.101 -U pguser -d dbpg -W`
+![psql](img/captura01.png)
+
+## pgAdmin 4
+
+Descargamos las depencias
+`sudo apt install curl gnupg lsb-release`
+
+Añadimos la clave del repositorio
+`curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/keyrings/packages-pgadmin-org.gpg`
+
+Añadimos el repositorio
+`sudo sh -c 'echo "deb [signed-by=/etc/apt/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(. /etc/os-release && echo $UBUNTU_CODENAME) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'`
+
+Instalamos
+`sudo apt update`
+`sudo apt install pgadmin4-desktop`
+
+Lo buscamos en el equipo y lo iniciamos
+![pgadmin](img/pgadmin.png)
+
+Hacemos click derecho en **Servers**
+![server](img/server.png)
+
+Le ponemos de nombre **PostreSQL-dbpg**
+
+Vamos a la pestaña conecction y ponemos estos datos
+![confitpg](img/confpg.png)
+
+Pulsamos **Save**
+
+Vamos a la pestaña de Tools y vamos a Query Tools con la base de datos seleccionada
+![tools](img/tools.png)
+
+Aquí ejecutamos 
+`SELECT current_user, current_database();`
+
+Dara este resultado
+![result](img/captura02.png)
+
+
+## mariadb
+
+Comprobamos el puerto
+`nc -zv 192.168.56.101 3306`
+
+Instalamos y conectamos
+`sudo apt install mariadb-client`
+`mariadb --version`
+`mysql --version`
+
+Nos conectamos a mariadb
+`mariadb -h 192.168.56.101 -u muser -p dbm`
+
+Hacemos una prueba
+![pmaria](img/pruebamaria.png)
+
+## phpMyAdmin
+
+Instalamos
+`sudo apt install apache2 php php-mysql php-mbstring php-zip php-gd php-curl phpmyadmin`
+
+Marcamos **apache2** con el espacio.
+Nos preguntara si configura la base de datos con **dbconfig-common** le diremos que no.
+
+Activamos y reiniciamos
+`sudo phpenmod mbstring`
+`sudo systemctl restart apache2`
+
+Apuntamos **phpMyAdmin** al servidor, entramos en este fichero
+`sudo nano /etc/phpmyadmin/config.inc.php`
+
+Añadimos esta linea al final
+`$cfg['Servers'][1]['host'] = '192.168.56.101';`
+
+Desde el navegador buscamos
+`http://localhost/phpmyadmin/`
+
+![php](img/login.png)
+
+Iniciamos sesión
+
+Entramos en **dbm** y en el apartado de sql y hacemos una prueba
+![phptest](img/php.png)
+
+## DBeaver
+
+Entramos en esta web `https://dbeaver.io/download/`
+![dbeaver](img/dbeaver.png)
+
+Lo descargamos
+`cd ~/Descargas`
+`ls`
+`sudo apt install ./dbeaver-ce_Resto_del_nombre.deb`
+
+Lo abrimos desde la interfaz grafica
+![graf](img/graf.png)
+
+Le damos al enchufe con el más
+
+y creamos las 3 conexiones siguientes
+
+| SGBD | Host | Puerto | Base / servicio | Usuario |
+|---|---|---|---|---|
+| Oracle | 192.168.56.101 | 1521 | FREEPDB1 (Service Name) | orauser |
+| PostgreSQL | 192.168.56.101 | 5432 | dbpg | pguser |
+| MariaDB | 192.168.56.101 | 3306 | dbm | muser |
+
+![conectadas](img/conectadas.png)
+
+## Adminer
+
+Instalar y arrancar
+`sudo apt install php-cli`
+`cd ~`
+`wget https://www.adminer.org/latest.php -O adminer.php`
+`php -S 127.0.0.1:8080 adminer.php`
+
+Abrimos en el navegador `http://localhost:8080`
+
+### MariaDB
+Rellenamos con los siguientes datos
+![lm](img/lm.png)
+
+### PostgreSQL
+Rellenamos con los siguientes datos
+![lp](img/lp.png)
+
+si da error paramos el servidor y ejecutamos estos comandos
+`sudo apt install php-pgsql`
+`php -S 127.0.0.1:8080 adminer.php`
