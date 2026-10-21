@@ -107,7 +107,7 @@ Ejecutamos el .sh
 | **Tipo de base de datos**   | *Oracle*                    |
 | **Usuario**                 | *orauser*                   |
 | **Contraseña**              | *TU_CLAVE*                  |
-| **Tipo de conexión          | *Básico*                    |
+| **Tipo de conexión**        | *Básico*                    |
 | **Nombre del host**         | *192.168.56.101*            |
 | **Puerto**                  | *1521*                      |
 | **Nombre del servicio**     | *FREEPDB1* (marca esta opción, no SID |
@@ -141,3 +141,84 @@ Ejecutamos el .sh
 ![Extensiones](img/extensiones.png)
 Buscamos **Oracle SQL Developer for VS Code** comprobamos que es de Oracle y lo descargamos
 ![Extension](img/extension.png)
+
+### Entramos en el panel de Extensión
+Al instalar la extensión nos salio un nuevo icono en Visual Studio Code
+![nuevo](img/nuevo.png)
+
+Se nos mostrara un **panel** donde podremos crear una conexión, haremos click y pondremos esta configuración
+
+
+| Campo                       | Valor                       |
+| --------------------------- | --------------------------- |
+| *Connection Name*           | *Oracle-FREEPDB1*           |
+| **Authentication Type**     | *Default*                   |
+| **Username**                | *orauser*                   |
+| **Password**                | *TU_CLAVE*                  |
+| **Conecction Type**         | *Basic*                     |
+| **Hostname**                | *192.168.56.101*            |
+| **Port**                    | *1521*                      |
+| **Type**                    | *Service Name(no SID)*
+| **Nombre del servicio**     | *FREEPDB1* (marca esta opción, no SID |
+
+![Config](img/confext.png)
+
+Le daremos a **Test** y a **Connect**
+
+Deberá aparecerte ahora así 
+![config](img/result.png)
+
+Haremos **click derecho** en la conexión y le daremos a **Open SQL Worksheet**
+![confi](img/worksheet.png)
+
+Una vez dentro pondremos
+`SELECT USER FROM DUAL;`
+Lo ejecutaremos
+
+Si sale esto como resultado esta todo en orden
+![resultado](img/vsuser.png)
+
+## SQL*Plus
+
+Iremos a esta pagina `https://www.oracle.com/database/technologies/instant-client/downloads.html`
+Aquí entramos en esta opción de aquí
+![descarga](img/descarga.png)
+
+Aquí descargaremos 
+- Basic Package(ZIP)
+![Basic](img/basic.png)
+
+- SQL*Plus Package(ZIP)
+![SQL*Plus](img/plus.png)
+
+Crearemos una carpeta llamada *oracle-client*
+`mkdir -p ~/oracle-client`
+**Descomprimimos** los .zip
+`cd ~/Descargas`
+`unzip instantclient-basic-linux.x64-23.26.4.0.0.zip -d ~/oracle-client`
+`unzip instantclient-sqlplus-linux.x64-23.26.4.0.0.zip -d ~/oracle-client`
+`ls ~/oracle-client`
+
+EL ls de oracle client debería quedar así
+![unzip](unzip.png)
+
+#### Ahora indicamos donde están las librerias
+
+
+
+`export LD_LIBRARY_PATH="$HOME/oracle-client/instantclient_23_26:$LD_LIBRARY_PATH"`
+`export PATH="$HOME/oracle-client/instantclient_23_26:$PATH"`
+`sudo ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1`
+Este comando lo ponemos porque SQL busca la librería libaio.so.1, que es una librería que ya existe, pero en Mint se actualizo y se cambio su nombre.
+Entonces creamos un enlace simbólico para que SQL pueda encontrarla
+`sqlplus -v`
+
+#### Probaremos a conectarnos al servidor
+`sqlplus orauser@//192.168.56.101:1521/FREEPDB1`
+
+#### Ahora dentro haremos una comprobación
+Pondremos
+`SHOW USER`
+`SHOw CON_NAME`
+![comprobación](img/comprovación.png)
+
