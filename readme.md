@@ -96,3 +96,44 @@ Ejecutamos el .sh
 
 **Esta es lo que debe abrirse**
 ![Oracle activo](img/oracle-activo.png)
+
+## Creamos una conexión manualmente
+![Crear conexión](img/paso1.png)
+#### Ponemos estos datos en la nueva conexión
+
+| Campo                       | Valor                       |
+| --------------------------- | --------------------------- |
+| **Name**                    | *Oracle-FREEPDB1*           |
+| **Tipo de base de datos**   | *Oracle*                    |
+| **Usuario**                 | *orauser*                   |
+| **Contraseña**              | *TU_CLAVE*                  |
+| **Tipo de conexión          | *Básico*                    |
+| **Nombre del host**         | *192.168.56.101*            |
+| **Puerto**                  | *1521*                      |
+| **Nombre del servicio**     | *FREEPDB1* (marca esta opción, no SID |
+
+![Conexión](img/paso2.png)
+
+#### Probamos esta conexión y si todo esta correcto le damos a conectar
+
+![Hoja](img/paso3.png)
+
+**Se abrira esta hoja de trabajon y pondremos esto**
+`SELECT USER FROM DUAL;`
+*Ejecutamos*
+
+**Debe devolver orauser para comprobar que esta correcto**
+![User](img/paso4.png)
+
+## Vscode
+
+#### Vamos a la pagina oficial de visual studio code y descargamos el .deb
+#### Una vez descargamos vamos a la carpeta descargas y ponemos este comando
+`sudo apt install ./code_NOMBRE_DEL_ARCHIVO.deb`
+
+#### Cuando acabe la instalación comprobamos que todo esta en orden con el comando
+`code --version`
+
+### Abrimos visual studio code (desde la maquina)
+![Buscar](img/buscar.png)
+
