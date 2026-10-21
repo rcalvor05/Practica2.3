@@ -78,4 +78,21 @@ En el cliente hacemos
 sudo apt install default-jdk unzip
 java --version`
 
+## Descargamos el .zip
+Vamos a este enlace `https://www.oracle.com/database/sqldeveloper/technologies/download/` 
 
+Descargamos esta opción
+![Descarga .zip](img/archivo.zip.png)
+
+Entramos en Descargas
+`cd ~/Descargas`
+
+Descomprimimos el archivo .zip
+`sudo unzip NOMBRE_DEL_ZIP.zip -d /opt/`
+
+Ejecutamos el .sh
+`/opt/sqldeveloper/sqldeveloper.sh`
+*Si estamos conectados por SSH tendremos que ejecutarlo desde la propia maquina ya que se tiene que abrir una pantalla de SQL*
+
+**Esta es lo que debe abrirse**
+![Oracle activo](img/oracle-activo.png)
